@@ -1,5 +1,6 @@
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Header from '../../components/Layout/Header';
+import Dashboard from './Dashboard';
 import styles from './HomePage.module.css';
 
 /**
@@ -18,8 +19,8 @@ const HomePage = () => {
 };
 
 /**
- * Default redirect when user lands on /home without a subroute.
+ * Default landing when user navigates to /home — renders the Dashboard.
  */
-export const HomeRedirect = () => <Navigate to="/home/todos" replace />;
+export const HomeRedirect = () => <Dashboard />;
 
 export default HomePage;

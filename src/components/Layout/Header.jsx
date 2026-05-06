@@ -19,6 +19,7 @@ const Header = () => {
 
   const navLinks = useMemo(
     () => [
+      { to: '/home', label: 'Home', icon: '🏠', end: true },
       { to: '/home/todos', label: 'Todos', icon: '✅' },
       { to: '/home/posts', label: 'Posts', icon: '📝' },
       { to: '/home/albums', label: 'Albums', icon: '📸' },
@@ -39,6 +40,7 @@ const Header = () => {
             <NavLink
               key={link.to}
               to={link.to}
+              end={link.end}
               className={({ isActive }) =>
                 `${styles.navLink} ${isActive ? styles.active : ''}`
               }
