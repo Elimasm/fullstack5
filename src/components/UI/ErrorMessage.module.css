@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 32px;
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.message {
+  color: var(--error);
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.retryBtn {
+  padding: 8px 20px;
+  border: 1px solid var(--error-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--error);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.retryBtn:hover {
+  background: var(--error);
+  color: #fff;
+}
