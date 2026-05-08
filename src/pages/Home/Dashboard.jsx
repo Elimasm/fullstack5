@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import styles from './Dashboard.module.css';
+import styles from '../../CSS/Dashboard.module.css';
 
 /**
  * Dashboard — the main Home landing page (/home).

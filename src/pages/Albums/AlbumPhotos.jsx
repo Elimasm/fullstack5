@@ -9,7 +9,7 @@ import Loader from '../../components/UI/Loader';
 import ErrorMessage from '../../components/UI/ErrorMessage';
 import Pagination from '../../components/UI/Pagination';
 import ConfirmDialog from '../../components/UI/ConfirmDialog';
-import styles from './Albums.module.css';
+import styles from '../../CSS/Albums.module.css';
 import { PHOTOS_PER_PAGE } from '../../utils/constants';
 
 const AlbumPhotos = () => {

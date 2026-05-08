@@ -11,7 +11,7 @@ import SortSelect from '../../components/UI/SortSelect';
 import Loader from '../../components/UI/Loader';
 import ErrorMessage from '../../components/UI/ErrorMessage';
 import ConfirmDialog from '../../components/UI/ConfirmDialog';
-import styles from './Todos.module.css';
+import styles from '../../CSS/Todos.module.css';
 import { useEffect } from 'react';
 
 const TodosPage = () => {

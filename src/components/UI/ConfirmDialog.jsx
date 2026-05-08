@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import styles from './ConfirmDialog.module.css';
+import styles from '../../CSS/ConfirmDialog.module.css';
 
 /**
  * Confirmation dialog for destructive actions (delete, etc.).

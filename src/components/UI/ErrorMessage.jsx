@@ -1,4 +1,4 @@
-import styles from './ErrorMessage.module.css';
+import styles from '../../CSS/ErrorMessage.module.css';
 
 /**
  * Error display component with optional retry button.

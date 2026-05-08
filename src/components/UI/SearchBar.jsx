@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import styles from './SearchBar.module.css';
+import styles from '../../CSS/SearchBar.module.css';
 
 /**
  * Reusable search input component.

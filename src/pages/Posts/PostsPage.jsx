@@ -10,7 +10,7 @@ import SearchBar from '../../components/UI/SearchBar';
 import Loader from '../../components/UI/Loader';
 import ErrorMessage from '../../components/UI/ErrorMessage';
 import ConfirmDialog from '../../components/UI/ConfirmDialog';
-import styles from './Posts.module.css';
+import styles from '../../CSS/Posts.module.css';
 
 const PostsPage = () => {
   const { user } = useAuth();

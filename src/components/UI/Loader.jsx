@@ -1,4 +1,4 @@
-import styles from './Loader.module.css';
+import styles from '../../CSS/Loader.module.css';
 
 /**
  * Loading spinner component with optional message.

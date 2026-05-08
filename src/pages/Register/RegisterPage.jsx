@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { getUserByUsername } from '../../api/usersApi';
-import styles from './RegisterPage.module.css';
+import styles from '../../CSS/RegisterPage.module.css';
 
 const RegisterPage = () => {
   const navigate = useNavigate();

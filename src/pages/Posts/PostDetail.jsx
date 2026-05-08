@@ -6,7 +6,7 @@ import { getCommentsByPostId, createComment, updateComment, deleteComment } from
 import Loader from '../../components/UI/Loader';
 import ErrorMessage from '../../components/UI/ErrorMessage';
 import ConfirmDialog from '../../components/UI/ConfirmDialog';
-import styles from './Posts.module.css';
+import styles from '../../CSS/Posts.module.css';
 
 const PostDetail = () => {
   const { postId } = useParams();

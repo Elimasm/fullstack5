@@ -2,7 +2,7 @@ import { useState, useCallback, useMemo } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import Modal from '../UI/Modal';
-import styles from './Header.module.css';
+import styles from '../../CSS/Header.module.css';
 
 const Header = () => {
   const { user, logout } = useAuth();

@@ -9,7 +9,7 @@ import { filterByQuery } from '../../utils/helpers';
 import SearchBar from '../../components/UI/SearchBar';
 import Loader from '../../components/UI/Loader';
 import ErrorMessage from '../../components/UI/ErrorMessage';
-import styles from './Albums.module.css';
+import styles from '../../CSS/Albums.module.css';
 
 const AlbumsPage = () => {
   const { user } = useAuth();

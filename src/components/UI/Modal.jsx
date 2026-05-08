@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
-import styles from './Modal.module.css';
+import styles from '../../CSS/Modal.module.css';
 
 /**
  * Reusable modal/overlay component with backdrop click and ESC to close.

@@ -1,4 +1,4 @@
-import styles from './SortSelect.module.css';
+import styles from '../../CSS/SortSelect.module.css';
 
 /**
  * Reusable sort dropdown component.

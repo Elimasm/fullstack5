@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../../components/Layout/Header';
 import Dashboard from './Dashboard';
-import styles from './HomePage.module.css';
+import styles from '../../CSS/HomePage.module.css';
 
 /**
  * HomePage layout shell.

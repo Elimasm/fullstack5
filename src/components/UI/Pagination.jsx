@@ -1,4 +1,4 @@
-import styles from './Pagination.module.css';
+import styles from '../../CSS/Pagination.module.css';
 
 /**
  * Load More / Pagination controls for progressive loading.

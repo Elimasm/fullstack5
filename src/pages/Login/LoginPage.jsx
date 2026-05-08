@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import styles from './LoginPage.module.css';
+import styles from '../../CSS/LoginPage.module.css';
 
 const LoginPage = () => {
   const { login, isAuthenticated } = useAuth();
