@@ -9,20 +9,11 @@ const RegisterPage = () => {
   const [serverError, setServerError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      username: '',
-      password: '',
-      verifyPassword: '',
-    },
+  const { register, handleSubmit, watch, formState: { errors }, } = useForm({
+    defaultValues: { username: '', password: '', verifyPassword: '', },
   });
 
-  const password = watch('password');
+  const password = watch('password'); // get the password value, and "watch" update the value when it change.
 
   const onSubmit = useCallback(
     async (data) => {

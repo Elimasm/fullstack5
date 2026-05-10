@@ -15,16 +15,25 @@ import styles from '../../CSS/Todos.module.css';
 import { useEffect } from 'react';
 
 const TodosPage = () => {
-  const { user } = useAuth();
-  const cache = useCache();
-  const [todos, dispatch] = useReducer(todosReducer, todosInitialState);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [newTitle, setNewTitle] = useState('');
+  const { user } = useAuth(); // data about the current user
+
+  const cache = useCache(); // 
+
+  // todos CRUD state management:
+  const [todos, dispatch] = useReducer(todosReducer, todosInitialState); 
+
+  const [loading, setLoading] = useState(true); //bool, not empty = ring needed
+  const [error, setError] = useState(null);//string, not empty = err message needed
+
+  const [newTitle, setNewTitle] = useState('');// for the "add new todo" input
+
+  // which todo is currently being edited (by id) and the current value
+  // of the edit input (for the todo being edited)
   const [editingId, setEditingId] = useState(null);
   const [editTitle, setEditTitle] = useState('');
   const [deleteTarget, setDeleteTarget] = useState(null);
 
+  // this state synces the search with the URL, that's why in refresh we need in default values.
   const { params, setParam } = useSearchParamsState({ search: '', sort: 'id' });
 
   // ── Fetch todos ──
@@ -94,12 +103,12 @@ const TodosPage = () => {
 
   // ── Save edit ──
   const saveEdit = useCallback(async (id) => {
-    if (!editTitle.trim()) return;
+    if (!editTitle.trim()) return; // don't save empty todos
     try {
       await updateTodo(id, { title: editTitle.trim() });
       dispatch({ type: TODOS_ACTIONS.UPDATE, payload: { id, updates: { title: editTitle.trim() } } });
-      cache.invalidatePattern('/todos');
-      setEditingId(null);
+      cache.invalidatePattern('/todos'); // make '/todos' cache invalid.
+      setEditingId(null); // exit edit mode
     } catch (err) {
       setError(err.message);
     }
@@ -118,12 +127,17 @@ const TodosPage = () => {
     }
   }, [deleteTarget, cache]);
 
-  // ── Filtered & sorted list (memoized) ──
+  // - Filtered & sorted list (memoized) USING "useSearchParamsState" -
+  // we use "useMemo" to avoid unnecessary recalculations of the filtered/sorted
+  //  list on every render,
+  //  it will only recalculate when the values in line 141 change.
   const processedTodos = useMemo(() => {
-    let result = [...todos];
-    if (params.search) {
+    let result = [...todos]; // a copy to work on him
+    // "did the user write something in the search input?"
+    if (params.search) { 
       result = filterByQuery(result, params.search, ['id', 'title', 'completed']);
     }
+    // "did the user choose a sort option?"
     if (params.sort) {
       result = sortByKey(result, params.sort);
     }
@@ -163,6 +177,7 @@ const TodosPage = () => {
           placeholder="Add a new todo..."
           className={styles.addInput}
         />
+        { /* only spaces or empty string = button disabled */ }
         <button type="submit" className={styles.addBtn} disabled={!newTitle.trim()}>
           + Add
         </button>
@@ -180,7 +195,8 @@ const TodosPage = () => {
             />
 
             <span className={styles.itemId}>#{todo.id}</span>
-
+            {/*input = for case we on the edited todo
+               span  = for case we NOT on the edited todo */}
             {editingId === todo.id ? (
               <input
                 type="text"
@@ -191,7 +207,8 @@ const TodosPage = () => {
                 className={styles.editInput}
                 autoFocus
               />
-            ) : (
+            ) : 
+            (
               <span
                 className={styles.itemTitle}
                 onDoubleClick={() => startEdit(todo)}
@@ -201,7 +218,8 @@ const TodosPage = () => {
             )}
 
             <div className={styles.itemActions}>
-              {editingId !== todo.id && (
+              {/* show edit and delete button only if this todo isn't being edited */}
+              {editingId !== todo.id && ( 
                 <button className={styles.editBtn} onClick={() => startEdit(todo)} title="Edit">
                   ✏️
                 </button>

@@ -8,7 +8,9 @@ export const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, authInitialState);
 
-  // ── Restore session from localStorage on mount ──
+
+  // CHECK IF THE USER IS LOGGED IN FROM THE STATE WHEN HE OPENS THE TAB.
+  // ── this function is for case that the user closed the tab and opened it again. so we retreve his data from the localstorage ──
   useEffect(() => {
     try {
       const stored = localStorage.getItem(LS_KEYS.CURRENT_USER);
@@ -19,8 +21,9 @@ export const AuthProvider = ({ children }) => {
     } catch {
       localStorage.removeItem(LS_KEYS.CURRENT_USER);
     }
-  }, []);
+  }, []); // [] means this function will run only once when the component mounts and not whenever the component re-renders
 
+  // GET THE NEW USER THAT JUST LOGGED IN OR REGISTERED AND SAVING HIM IN THE LOCALSTORAGE
   // ── Sync state changes to localStorage ──
   useEffect(() => {
     if (state.isAuthenticated && state.user) {
@@ -38,8 +41,8 @@ export const AuthProvider = ({ children }) => {
       if (user.website !== password) {
         throw new Error('Incorrect password. Please try again.');
       }
-      dispatch({ type: AUTH_ACTIONS.LOGIN, payload: user });
-      return { success: true, user };
+      dispatch({ type: AUTH_ACTIONS.LOGIN, payload: user }); // tell the reducer to log in the user
+      return { success: true, user }; // tells LoginPage is it success or not with the data of the user who logged in.
     } catch (error) {
       return { success: false, error: error.message };
     }
@@ -59,7 +62,7 @@ export const AuthProvider = ({ children }) => {
       if (existingUser) {
         throw new Error('Username already exists. Please choose a different one.');
       }
-      const newUser = await createUser(userData);
+      const newUser = await createUser(userData); // WRITES INSIDE DB.JSON
       dispatch({ type: AUTH_ACTIONS.REGISTER, payload: newUser });
       return { success: true, user: newUser };
     } catch (error) {

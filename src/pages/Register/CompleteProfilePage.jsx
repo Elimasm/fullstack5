@@ -12,18 +12,14 @@ const CompleteProfilePage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // Get credentials from step 1
-  const credentials = location.state;
+  const credentials = location.state; // WE BRING ALL THE DATA FROM THE PREVIOUS PAGE (REGISTER PAGE) 
 
   // If no credentials, redirect back to register
   if (!credentials?.username || !credentials?.password) {
     return <Navigate to="/register" replace />;
   }
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, formState: { errors }, } = useForm({
     defaultValues: {
       name: '',
       email: '',
@@ -34,12 +30,13 @@ const CompleteProfilePage = () => {
     },
   });
 
-  const onSubmit = useCallback(
+  // this method packages all the user data and saves it in the DB.JSON
+  const onSubmit = useCallback( 
     async (data) => {
       setIsLoading(true);
       setServerError('');
 
-      try {
+      try { // organize the data for the DB.JSON
         const userData = {
           name: data.name,
           username: credentials.username,
@@ -60,7 +57,8 @@ const CompleteProfilePage = () => {
           },
         };
 
-        const result = await registerUser(userData);
+        // registerUser is a state from useAuth, and useAuth is from AuthContext.jsx, this will save the user in the DB.JSON
+        const result = await registerUser(userData);  
         if (result.success) {
           navigate('/home', { replace: true });
         } else {

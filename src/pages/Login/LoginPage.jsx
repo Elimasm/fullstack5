@@ -5,22 +5,22 @@ import { useAuth } from '../../hooks/useAuth';
 import styles from '../../CSS/LoginPage.module.css';
 
 const LoginPage = () => {
-  const { login, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+
+  //custsom hooks:
+  const { login, isAuthenticated } = useAuth(); // we access the state and the functions to update the state to check if the user is logged in.
+
+  //routing:
+  const navigate = useNavigate(); // this function allows us by using "navigate("/page i want")" to go to the page i want.
+  const location = useLocation(); // with location we able to use the state that came with "navigate" that tells us where we were trying to go before login.
+                                  
+
+  //states
   const [serverError, setServerError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      username: '',
-      password: '',
-    },
-  });
+  //react hook form:
+  const {register, handleSubmit,formState: { errors },} = useForm({
+    defaultValues: { username: '',password: '' },});
 
   // Redirect if already authenticated
   if (isAuthenticated) {
@@ -34,20 +34,25 @@ const LoginPage = () => {
       setServerError('');
 
       try {
-        const result = await login(data.username, data.password);
+        const result = await login(data.username, data.password); // get to the DB and confirm the data from the USE-FORM. that's why its an async function.
         if (result.success) {
-          const from = location.state?.from?.pathname || '/home';
-          navigate(from, { replace: true });
-        } else {
+          // if we logged from specific place in the app we redirect to it after login,
+          // if not we redirect to the home page
+          const from = location.state?.from?.pathname || '/home'; 
+          navigate(from, { replace: true }); // navigate to the page in "from", replace is a state to not push the login page to the history stack 
+        } else { //wrong username or password
           setServerError(result.error);
         }
-      } catch (error) {
+      } catch (error) { //db isn't up or something else
         setServerError('An unexpected error occurred. Please try again.');
-      } finally {
-        setIsLoading(false);
+      } finally { //we are done, we close the loader
+        setIsLoading(false); // stop the spinning wheel
       }
     },
-    [login, navigate, location.state]
+    // login - returns true if succeeded, false if there is a problem
+    // navigate - allows us to navigate between pages
+    // location.state - allows us to redirect to the page we were trying to access before login
+    [login, navigate, location.state] // this function will run only if one of the states changes. why? to prevent infinite loop
   );
 
   return (

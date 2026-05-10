@@ -2,15 +2,10 @@ import { useMemo } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import styles from '../../CSS/Dashboard.module.css';
 
-/**
- * Dashboard — the main Home landing page (/home).
- * Shows a welcome hero.
- */
 const Dashboard = () => {
   const { user } = useAuth();
 
-  // ── Greeting based on time ──
-  const greeting = useMemo(() => {
+  const greeting = useMemo(() => { // useMemo is used to memoize the greeting so it doesn't recalculate on every render but only on the first render 
     const hour = new Date().getHours();
     if (hour < 12) return 'Good Morning';
     if (hour < 18) return 'Good Afternoon';
@@ -19,7 +14,6 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboard}>
-      {/* ── Hero Section ── */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
           <span className={styles.greeting}>{greeting} 👋</span>

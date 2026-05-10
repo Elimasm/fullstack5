@@ -13,15 +13,25 @@ import ConfirmDialog from '../../components/UI/ConfirmDialog';
 import styles from '../../CSS/Posts.module.css';
 
 const PostsPage = () => {
-  const { user } = useAuth();
+  const { user } = useAuth(); // get the user details from "auth context"
+
   const cache = useCache();
-  const navigate = useNavigate();
-  const { postId } = useParams();
+
+  const navigate = useNavigate();//makes me able to change url when post is clicked
+  const { postId } = useParams();//postId = param from url.
+
+  //to manage the whole CRUD operations of posts
   const [posts, dispatch] = useReducer(postsReducer, postsInitialState);
+
+  // state if "New Post" is visible
+  const [showAddForm, setShowAddForm] = useState(false); 
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showAddForm, setShowAddForm] = useState(false);
+
+  //data of body and title of new post
   const [newPost, setNewPost] = useState({ title: '', body: '' });
+
   const [editingPostId, setEditingPostId] = useState(null);
   const [editFields, setEditFields] = useState({ title: '', body: '' });
   const [deleteTarget, setDeleteTarget] = useState(null);
@@ -30,7 +40,8 @@ const PostsPage = () => {
 
   const selectedPostId = postId ? Number(postId) : null;
 
-  // ── Fetch posts ──
+  // if there is userDetails in cache, then use it,
+  // otherwise fetch from API and set in cache for future use
   const fetchPosts = useCallback(async () => {
     if (!user) return;
     setLoading(true);
@@ -71,11 +82,12 @@ const PostsPage = () => {
   }, [newPost, user, cache]);
 
   // ── Edit post ──
+  //opens the little edit form
   const startEditPost = useCallback((post) => {
     setEditingPostId(post.id);
     setEditFields({ title: post.title, body: post.body });
   }, []);
-
+  //after pressing the save button in the mini form: 
   const saveEditPost = useCallback(async () => {
     if (!editFields.title.trim()) return;
     try {

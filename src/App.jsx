@@ -4,7 +4,8 @@ import ProtectedRoute from './components/Guards/ProtectedRoute';
 import LoginPage from './pages/Login/LoginPage';
 import RegisterPage from './pages/Register/RegisterPage';
 import CompleteProfilePage from './pages/Register/CompleteProfilePage';
-import HomePage, { HomeRedirect } from './pages/Home/HomePage';
+import HomePage from './pages/Home/HomePage';
+import Dashboard from './pages/Home/Dashboard';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 
 // Lazy load feature pages for code splitting
@@ -29,15 +30,12 @@ function App() {
             <Route path="/register/complete" element={<CompleteProfilePage />} />
 
             {/* ── Protected Routes ── */}
-            <Route
-              path="/home"
-              element={
-                <ProtectedRoute>
-                  <HomePage />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<HomeRedirect />} />
+            <Route path="/home" element={
+              <ProtectedRoute>
+                <HomePage />
+              </ProtectedRoute>
+            }>
+              <Route index element={<Dashboard />} />
               <Route path="todos" element={<TodosPage />} />
               <Route path="posts" element={<PostsPage />}>
                 <Route path=":postId" element={<PostDetail />} />
