@@ -15,6 +15,8 @@ import styles from '../../CSS/Posts.module.css';
 const PostsPage = () => {
   const { user } = useAuth(); // get the user details from "auth context"
 
+  // we always ask if the data we want from the DB is in the cache, 
+  // and if not, we bring it and save it in the cache for the next time.
   const cache = useCache();
 
   const navigate = useNavigate();//makes me able to change url when post is clicked
@@ -24,7 +26,7 @@ const PostsPage = () => {
   const [posts, dispatch] = useReducer(postsReducer, postsInitialState);
 
   // state if "New Post" is visible
-  const [showAddForm, setShowAddForm] = useState(false); 
+  const [showAddForm, setShowAddForm] = useState(false);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,13 +34,14 @@ const PostsPage = () => {
   //data of body and title of new post
   const [newPost, setNewPost] = useState({ title: '', body: '' });
 
-  const [editingPostId, setEditingPostId] = useState(null);
-  const [editFields, setEditFields] = useState({ title: '', body: '' });
+  const [editingPostId, setEditingPostId] = useState(null); //which post is being edited
+  const [editFields, setEditFields] = useState({ title: '', body: '' }); //the fields of the post being edited
   const [deleteTarget, setDeleteTarget] = useState(null);
 
+  //this hook checks the url and sets params synced with it. also sets the url when params change.
   const { params, setParam } = useSearchParamsState({ search: '' });
 
-  const selectedPostId = postId ? Number(postId) : null;
+  const selectedPostId = postId ? Number(postId) : null; //checks if the value from the url is actually number, if not we set it to null. e.g. /home/posts/a -> null
 
   // if there is userDetails in cache, then use it,
   // otherwise fetch from API and set in cache for future use
@@ -136,8 +139,8 @@ const PostsPage = () => {
       {/* ── Add Form ── */}
       {showAddForm && (
         <form className={styles.addForm} onSubmit={handleAddPost}>
-          <input type="text" value={newPost.title} onChange={(e) => setNewPost(p => ({...p, title: e.target.value}))} placeholder="Post title..." className={styles.formInput} />
-          <textarea value={newPost.body} onChange={(e) => setNewPost(p => ({...p, body: e.target.value}))} placeholder="Post content..." className={styles.formTextarea} rows={3} />
+          <input type="text" value={newPost.title} onChange={(e) => setNewPost(p => ({ ...p, title: e.target.value }))} placeholder="Post title..." className={styles.formInput} />
+          <textarea value={newPost.body} onChange={(e) => setNewPost(p => ({ ...p, body: e.target.value }))} placeholder="Post content..." className={styles.formTextarea} rows={3} />
           <button type="submit" className={styles.submitBtn} disabled={!newPost.title.trim() || !newPost.body.trim()}>Publish</button>
         </form>
       )}
@@ -175,8 +178,8 @@ const PostsPage = () => {
         <div className={styles.editOverlay} onClick={() => setEditingPostId(null)}>
           <div className={styles.editModal} onClick={(e) => e.stopPropagation()}>
             <h3>Edit Post</h3>
-            <input type="text" value={editFields.title} onChange={(e) => setEditFields(f => ({...f, title: e.target.value}))} className={styles.formInput} />
-            <textarea value={editFields.body} onChange={(e) => setEditFields(f => ({...f, body: e.target.value}))} className={styles.formTextarea} rows={4} />
+            <input type="text" value={editFields.title} onChange={(e) => setEditFields(f => ({ ...f, title: e.target.value }))} className={styles.formInput} />
+            <textarea value={editFields.body} onChange={(e) => setEditFields(f => ({ ...f, body: e.target.value }))} className={styles.formTextarea} rows={4} />
             <div className={styles.editActions}>
               <button onClick={() => setEditingPostId(null)} className={styles.cancelBtn}>Cancel</button>
               <button onClick={saveEditPost} className={styles.submitBtn}>Save</button>

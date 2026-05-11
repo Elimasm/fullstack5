@@ -33,7 +33,7 @@ const TodosPage = () => {
   const [editTitle, setEditTitle] = useState('');
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  // this state synces the search with the URL, that's why in refresh we need in default values.
+  // this state synces the search with the URL
   const { params, setParam } = useSearchParamsState({ search: '', sort: 'id' });
 
   // ── Fetch todos ──

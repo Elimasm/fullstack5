@@ -14,8 +14,8 @@ export const useSearchParamsState = (defaults = {}) => {
   // Build current params object from URL, falling back to defaults
   const params = useMemo(() => {
     const current = {};
-    Object.keys(defaults).forEach((key) => {
-      current[key] = searchParams.get(key) || defaults[key];
+    Object.keys(defaults).forEach((key) => {  // ".../files?search=video&sort=date" for instance will give me the array of keys ['search', 'sort']
+      current[key] = searchParams.get(key) || defaults[key]; // creates a dict like {search:"video",sort:"date"} 
     });
     return current;
   }, [searchParams, defaults]);
@@ -27,9 +27,9 @@ export const useSearchParamsState = (defaults = {}) => {
         (prev) => {
           const next = new URLSearchParams(prev);
           if (value === '' || value === null || value === undefined) {
-            next.delete(key);
+            next.delete(key); // remove the param from the url, for example if it was "?search=video", it becomes "" and deletes search
           } else {
-            next.set(key, value);
+            next.set(key, value); // add the param to the url, for example "?search=video" will replace video with whatever value is written
           }
           return next;
         },
