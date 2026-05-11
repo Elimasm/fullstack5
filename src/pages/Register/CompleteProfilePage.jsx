@@ -82,6 +82,14 @@ const CompleteProfilePage = () => {
           <p className={styles.subtitle}>Step 2 of 2 — Tell us about yourself</p>
         </div>
 
+        <button
+          type="button"
+          className={styles.backBtn}
+          onClick={() => navigate('/register', { state: credentials })}
+        >
+          ← Back
+        </button>
+
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           {serverError && (
             <div className={styles.errorBanner}>{serverError}</div>
