@@ -16,6 +16,8 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   border: 1px solid var(--border);
   animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  /* FIX: Ensure padding is included in the width calculation */
+  box-sizing: border-box;
 }
 
 .header {
@@ -97,6 +99,9 @@
 }
 
 .input {
+  /* FIX: Ensure input fills the container and respects padding */
+  width: 100%;
+  box-sizing: border-box;
   padding: 12px 16px;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -128,7 +133,8 @@
 
 .row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* FIX: Use minmax to prevent grid items from forcing an overflow */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -185,17 +191,43 @@
   text-decoration: underline;
 }
 
+/* FIX: Stack columns on mobile screens */
+@media (max-width: 400px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px);
+  }
+
+  75% {
+    transform: translateX(6px);
+  }
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

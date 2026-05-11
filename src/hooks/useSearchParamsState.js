@@ -18,7 +18,7 @@ export const useSearchParamsState = (defaults = {}) => {
       current[key] = searchParams.get(key) || defaults[key]; // creates a dict like {search:"video",sort:"date"} 
     });
     return current;
-  }, [searchParams, defaults]);
+  }, [searchParams, defaults]); 
 
   // Set a single param
   const setParam = useCallback(
